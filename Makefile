@@ -7,8 +7,8 @@ TARGET = ${TARGETDIR}/mg
 SRCEXT = cpp
 SOURCES = $(shell find ${SRCDIR} -type f -name *.${SRCEXT})
 OBJECTS = $(patsubst ${SRCDIR}/%, ${BUILDDIR}/%, $(SOURCES:.${SRCEXT}=.o))
-CFLAGS = -g
-INC = -I include
+CFLAGS = -g -std=c++20
+INC = -I ${SRCDIR}
 
 ${TARGET}: ${OBJECTS}
 	@echo " Linking..."
@@ -21,6 +21,6 @@ ${OBJECTS}:
 
 clean:
 	@echo " Cleaning..."
-	${RM} -r ${BUILDDIR} ${TARGET}
+	${RM} -r ${BUILDDIR} ${TARGETDIR}
 
 .PHONY: clean
