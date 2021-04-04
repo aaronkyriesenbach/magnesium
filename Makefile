@@ -8,15 +8,16 @@ SRCEXT = cpp
 SOURCES = $(shell find ${SRCDIR} -type f -name *.${SRCEXT})
 OBJECTS = $(patsubst ${SRCDIR}/%, ${BUILDDIR}/%, $(SOURCES:.${SRCEXT}=.o))
 CFLAGS = -g -std=c++20
+LIBS = -lgit2
 
 ${TARGET}: ${OBJECTS}
 	@echo " Linking..."
 	@mkdir -p ${TARGETDIR}
-	${CC} $^ -o ${TARGET}
+	${CC} $^ ${INC} ${LIBS} -o ${TARGET}
 
-${OBJECTS}:
+${OBJECTS}: src/magnesium.cpp
 	@mkdir -p ${BUILDDIR}
-	${CC} ${CFLAGS} ${INC} -c -o $@ ${SOURCES}
+	${CC} ${CFLAGS} ${INC} ${LIBS} -c -o $@ ${SOURCES}
 
 clean:
 	@echo " Cleaning..."
